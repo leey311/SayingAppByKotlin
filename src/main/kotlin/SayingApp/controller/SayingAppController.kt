@@ -17,7 +17,6 @@ object SayingAppController {
             }else println("$id 번 명언은 존재하지 않습니다.")
         }catch (e:NumberFormatException){
             println("잘못된 형식입니다 다시 시도해주세요")
-        }finally {
             deleteSaying()
         }
     }
@@ -30,7 +29,6 @@ object SayingAppController {
             }else println("$id 번 명언은 존재하지 않습니다.")
         }catch (e:NumberFormatException){
             println("잘못된 형식입니다 다시 시도해주세요")
-        }finally {
             modifySaying()
         }
     }
