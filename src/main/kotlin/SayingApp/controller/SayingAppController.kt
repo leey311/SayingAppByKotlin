@@ -50,7 +50,8 @@ object SayingAppController {
         print("$input) ")
         val userInput = readln()
         return userInput.ifBlank { "1" }
-    }private fun customizing(list: List<Saying>){
+    }
+    private fun customizing(list: List<Saying>){
         if(list.isEmpty()){
             println("조회할 명언이 존재하지 않습니다.")
         }else{

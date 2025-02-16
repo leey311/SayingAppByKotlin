@@ -31,8 +31,6 @@ object SayingRepository {
     fun findByPage(page:Int):List<Saying>?{
         return try {
             findAll().subList((page-1)*5, page*5)
-        }catch (e:NumberFormatException){
-            findAll().subList(0, 5)
         }catch (e:IndexOutOfBoundsException){
             null
         }
