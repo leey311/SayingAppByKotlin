@@ -14,8 +14,8 @@ object SayingAppService {
     fun modify(id:Int, author:String, saying:String):Int{
         return SayingRepository.modify(id, author, saying)
     }
-    fun list():List<Saying>{
-        return SayingRepository.findAll()
+    fun list(page:Int):List<Saying>?{
+        return SayingRepository.findByPage(page)
     }
     fun check(id:Int):Boolean{
         return SayingRepository.check(id)

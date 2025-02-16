@@ -34,8 +34,10 @@ object SayingAppController {
         }
     }
     fun showSayingByPaging(){
-        val list = SayingAppService.list().reversed()
-        customizing(list)
+        val list = SayingAppService.list(input("페이지").toInt())?.reversed()
+        if (list == null) {
+            println("존재하지 않는 페이지입니다.")
+        }else customizing(list)
     }
     fun buildSayingAll(){
         SayingAppService.build()
@@ -46,7 +48,8 @@ object SayingAppController {
     }
     private fun input(input: String):String{
         print("$input) ")
-        return readln()
+        val userInput = readln()
+        return userInput.ifBlank { "1" }
     }private fun customizing(list: List<Saying>){
         if(list.isEmpty()){
             println("조회할 명언이 존재하지 않습니다.")

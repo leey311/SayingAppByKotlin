@@ -4,6 +4,7 @@ import SayingApp.entity.Saying
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToJsonElement
 import java.io.File
+import java.lang.IndexOutOfBoundsException
 
 object SayingRepository {
     private val sayingMap: MutableMap<Int, Saying> = mutableMapOf()
@@ -27,8 +28,14 @@ object SayingRepository {
         saveToFile(modifySaying, id.toString())
         return id
     }
-    fun findAll(): List<Saying> {
-        return sayingMap.values.toList()
+    fun findByPage(page:Int):List<Saying>?{
+        return try {
+            findAll().subList((page-1)*5, page*5)
+        }catch (e:NumberFormatException){
+            findAll().subList(0, 5)
+        }catch (e:IndexOutOfBoundsException){
+            null
+        }
     }
     fun check(id:Int):Boolean{
         return sayingMap.containsKey(id)
@@ -45,6 +52,9 @@ object SayingRepository {
             }
         }
         return findList
+    }
+    private fun findAll(): List<Saying> {
+        return sayingMap.values.toList()
     }
     private fun saveToFile(saying: Saying, fileName: String){
         val json = Json.encodeToJsonElement(saying)
