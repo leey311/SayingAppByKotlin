@@ -1,5 +1,6 @@
 package SayingApp.controller
 
+import SayingApp.entity.Saying
 import SayingApp.service.SayingAppService
 
 object SayingAppController {
@@ -32,18 +33,27 @@ object SayingAppController {
             modifySaying()
         }
     }
-    fun showSayingAll(){
+    fun showSayingByPaging(){
         val list = SayingAppService.list().reversed()
-        if (list.isEmpty()){
+        customizing(list)
+    }
+    fun buildSayingAll(){
+        SayingAppService.build()
+    }
+    fun searchSaying(){
+        val findList = SayingAppService.search(input("검색어"))
+        customizing(findList)
+    }
+    private fun input(input: String):String{
+        print("$input) ")
+        return readln()
+    }private fun customizing(list: List<Saying>){
+        if(list.isEmpty()){
             println("조회할 명언이 존재하지 않습니다.")
         }else{
             for ((id, author, saying) in list){
                 println("$id / $author / $saying")
             }
         }
-    }
-    private fun input(input: String):String{
-        print("$input) ")
-        return readln()
     }
 }

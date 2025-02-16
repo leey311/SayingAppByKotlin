@@ -20,5 +20,10 @@ object SayingAppService {
     fun check(id:Int):Boolean{
         return SayingRepository.check(id)
     }
-
+    fun build(){
+        SayingRepository.build()
+    }
+    fun search(term:String):List<Saying>{
+        return SayingRepository.search(term)
+    }
 }
