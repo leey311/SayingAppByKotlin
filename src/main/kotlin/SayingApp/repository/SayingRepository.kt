@@ -14,7 +14,6 @@ object SayingRepository {
         val saveSaying = Saying(++id, author, saying)
         sayingMap[id] = saveSaying
         saveToFile(saveSaying, id.toString())
-        saveToLastId(id.toString())
         return id
     }
     fun delete(id:Int):Int{
@@ -51,15 +50,15 @@ object SayingRepository {
         }
         return findList
     }
+    fun saveToLastId(){
+        File("db/lastId").writeText(id.toString())
+    }
     private fun findAll(): List<Saying> {
         return sayingMap.values.toList()
     }
     private fun saveToFile(saying: Saying, fileName: String){
         val json = Json.encodeToJsonElement(saying)
         File("db/$fileName").writeText(json.toString())
-    }
-    private fun saveToLastId(id:String){
-        File("db/lastId").writeText(id)
     }
     private fun deleteFromFile(fileName: String) {
         val file = File("db/$fileName")

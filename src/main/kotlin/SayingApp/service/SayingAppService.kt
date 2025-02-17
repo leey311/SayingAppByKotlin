@@ -26,4 +26,7 @@ object SayingAppService {
     fun search(term:String):List<Saying>{
         return SayingRepository.search(term)
     }
+    fun exit(){
+        SayingRepository.saveToLastId()
+    }
 }

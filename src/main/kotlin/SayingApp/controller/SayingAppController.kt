@@ -46,6 +46,9 @@ object SayingAppController {
         val findList = SayingAppService.search(input("검색어"))
         customizing(findList)
     }
+    fun exitSayingApp(){
+        SayingAppService.exit()
+    }
     private fun input(input: String):String{
         print("$input) ")
         val userInput = readln()
