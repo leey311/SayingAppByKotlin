@@ -3,17 +3,18 @@ package SayingApp.controller
 import SayingApp.entity.Saying
 import SayingApp.service.SayingAppService
 
-object SayingAppController {
+class SayingAppController {
+    private val sayingAppService = SayingAppService()
 
     fun registSaying(){
-        val registId = SayingAppService.regist(input("작가"), input("명언"))
+        val registId = sayingAppService.regist(input("작가"), input("명언"))
         println("${registId}번 명언을 등록했습니다.")
     }
     fun deleteSaying(){
         try {
             val id = input("번호").toInt()
-            if (SayingAppService.check(id)){
-                val deleteId = SayingAppService.delete(id)
+            if (sayingAppService.check(id)){
+                val deleteId = sayingAppService.delete(id)
                 println("$deleteId 번 명언을 삭제했습니다.")
             }else println("$id 번 명언은 존재하지 않습니다.")
         }catch (e:NumberFormatException){
@@ -24,8 +25,8 @@ object SayingAppController {
     fun modifySaying(){
         try {
             val id = input("번호").toInt()
-            if (SayingAppService.check(id)){
-                val modifyId = SayingAppService.modify(id, input("작가"), input("명언"))
+            if (sayingAppService.check(id)){
+                val modifyId = sayingAppService.modify(id, input("작가"), input("명언"))
                 println("$modifyId 번 명언을 수정했습니다.")
             }else println("$id 번 명언은 존재하지 않습니다.")
         }catch (e:NumberFormatException){
@@ -34,20 +35,20 @@ object SayingAppController {
         }
     }
     fun showSayingByPaging(){
-        val list = SayingAppService.list(input("페이지").toInt())?.reversed()
+        val list = sayingAppService.list(input("페이지").toInt())?.reversed()
         if (list == null) {
             println("존재하지 않는 페이지입니다.")
         }else customizing(list)
     }
     fun buildSayingAll(){
-        SayingAppService.build()
+        sayingAppService.build()
     }
     fun searchSaying(){
-        val findList = SayingAppService.search(input("검색어"))
+        val findList = sayingAppService.search(input("검색어"))
         customizing(findList)
     }
     fun exitSayingApp(){
-        SayingAppService.exit()
+        sayingAppService.exit()
     }
     private fun input(input: String):String{
         print("$input) ")

@@ -3,7 +3,7 @@ package SayingApp.service
 import SayingApp.entity.Saying
 import SayingApp.repository.SayingRepository
 
-object SayingAppService {
+class SayingAppService {
 
     fun regist(author:String, saying:String):Int {
         return SayingRepository.save(author, saying)
